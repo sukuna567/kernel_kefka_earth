@@ -158,6 +158,9 @@ enum mt_cpu_dvfs_id {
 #define NR_FREQ_VPU 16
 #define NR_FREQ_CPU 16
 
+#define B_FREQ_BASE			2600000
+#define B_FREQ26_BASE		2600000
+
 #define BANK_L_TURN_FREQ	1800000
 #define BANK_B_TURN_FREQ	1800000
 #define BANK_GPU_TURN_FREQ      850000
@@ -201,14 +204,14 @@ enum mt_cpu_dvfs_id {
 #define VBOOT_PMIC_VAL	(80000)
 #define VBOOT_PMIC_CLR	(0)
 #define VBOOT_VAL		(0x60) /* volt domain: 0.8v */
-#define VMAX_VAL		(0x94) /* volt domain: 1.11875v*/
+#define VMAX_VAL		(0xFF) /* volt domain: 1.11875v -> unlimited */
 #define VMIN_VAL		(0x48) /* volt domain: 0.631v*/
 #define VCO_VAL			(0x40)
 #define DVTFIXED_VAL	(0x4)
 #define DVTFIXED_M_VAL	(0x07)
 
 
-#define VMAX_VAL_B		(0x94) /* volt domain: 1.11875v*/
+#define VMAX_VAL_B		(0xFF) /* volt domain: 1.11875v -> unlimited */
 #define VMIN_VAL_B		(0x48) /* volt domain: 0.631v*/
 #define VCO_VAL_B		(0x40) /* volt domain: 0.631v*/
 #define DVTFIXED_VAL_B	(0x3)
@@ -222,48 +225,48 @@ enum mt_cpu_dvfs_id {
 #define DCCONFIG_VAL	(0x555555)
 
 /* different for CCI */
-#define VMAX_VAL_CCI		(0x94) /* volt domain: 1.11875v*/
+#define VMAX_VAL_CCI		(0xFF) /* volt domain: 1.11875v -> unlimited */
 #define VMIN_VAL_CCI		(0x48)
 #define VCO_VAL_CCI		(0x40)
 #define DVTFIXED_VAL_CCI	(0x4)
 
 
 /* different for GPU */
-#define VMAX_VAL_GPU                    (0x94) /* eem domain: 1.11875v*/
+#define VMAX_VAL_GPU                    (0xFF) /* eem domain: 1.11875v -> unlimited */
 #define VMIN_VAL_GPU                    (0x42) /* eem domain: 0.6125v*/
 #define VCO_VAL_GPU                     (0x40) /* eem domain: 0.575v*/
 
 /* different for GPU_L */
-#define VMAX_VAL_GL                     (0x38)
+#define VMAX_VAL_GL                     (0xFF)
 #define VMIN_VAL_GL                     (0x40)
 #define VCO_VAL_GL                      (0x40)
 #define DVTFIXED_VAL_GL					(0x02)
 #define DVTFIXED_VAL_GPU				(0x02)
 
 /* different for GPU_H */
-#define VMAX_VAL_GH                     (0x73) /* volt domain: 1.11875v*/
+#define VMAX_VAL_GH                     (0xFF) /* volt domain: 1.11875v -> unlimited */
 #define VMIN_VAL_GH                     (0x20)
 #define VCO_VAL_GH                      (0x20)
 
 /* different for L_L */
-#define VMAX_VAL_LL                     (0x37)
+#define VMAX_VAL_LL                     (0xFF)
 #define VMIN_VAL_LL                     (0x15)
 #define VCO_VAL_LL                      (0x15)
 
 /* different for B_L */
-#define VMAX_VAL_BL                     (0x94) /* volt domain: 1.11875v*/
+#define VMAX_VAL_BL                     (0xFF) /* volt domain: 1.11875v -> unlimited */
 #define VMIN_VAL_BL                     (0x40)
 #define VCO_VAL_BL                      (0x40)
 #define DVTFIXED_VAL_BL					(0x2)
 
 /* different for L_H */
-#define VMAX_VAL_H			(0x50)
+#define VMAX_VAL_H			(0xFF)
 #define VMIN_VAL_H			(0x30)
 #define VCO_VAL_H			(0x30)
 #define DVTFIXED_VAL_H			(0x03)
 
 /* different for B_H */
-#define VMAX_VAL_BH			(0x94) /* volt domain: 1.11875v*/
+#define VMAX_VAL_BH			(0xFF) /* volt domain: 1.11875v -> unlimited */
 #define VMIN_VAL_BH			(0x40)
 #define VCO_VAL_BH			(0x40)
 #define DVTFIXED_VAL_BH		(0x3)

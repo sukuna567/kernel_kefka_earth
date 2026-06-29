@@ -2069,6 +2069,10 @@ static int eem_init1stress_thread_handler(void *data)
 				if (timeout % 300 == 0)
 					eem_error("init01 wait %d,0x%x[0x%x]\n",
 					timeout, out, final_init01_flag);
+				if (timeout > EEM_LOCKTIME_LIMIT) {
+					eem_error("timeout reach limit %d\n", EEM_LOCKTIME_LIMIT);
+					break;
+				}
 			}
 			msleep(100);
 		}
@@ -2221,7 +2225,7 @@ static void eem_init_det(struct eem_det *det, struct eem_devinfo *devinfo)
 			det->SPEC	= devinfo->CPU_B_SPEC;
 
 			det->VMAX = VMAX_VAL_B;
-			det->max_freq_khz = 2000000;
+			det->max_freq_khz = B_FREQ_BASE;
 #if ENABLE_LOO_B
 			det->loo_role = NO_LOO_BANK;
 		}
@@ -3363,6 +3367,10 @@ void eem_corner(int testcnt)
 ("@%s():%d, get_volt(%s) = 0x%08X, VBOOT = 0x%08X vpu_return = %d\n",
 __func__, __LINE__, det->name, det->real_vboot, det->VBOOT,
 det->ops->get_volt(det));
+				if (timeout > EEM_LOCKTIME_LIMIT) {
+					eem_error("timeout reach limit %d\n", EEM_LOCKTIME_LIMIT);
+					break;
+				}
 #endif
 			}
 			/* BUG_ON(det->real_vboot != det->VBOOT); */
@@ -3404,6 +3412,10 @@ det->ops->get_volt(det));
 			eem_debug
 			("@@#corner wait time is %d, bankmask:0x%x[/0x%x]\n",
 			timeout, out, final_corner_flag);
+		if (timeout > EEM_LOCKTIME_LIMIT) {
+			eem_error("timeout reach limit %d\n", EEM_LOCKTIME_LIMIT);
+			break;
+		}
 	}
 	for_each_det(det) {
 		if (det->ctrl_id == EEM_CTRL_VPU) {
@@ -3465,6 +3477,10 @@ void eem_init01(void)
 					eem_debug
 ("@%s():%d, get_volt(%s) = 0x%08X, VBOOT = 0x%08X\n",
 __func__, __LINE__, det->name, det->real_vboot, det->VBOOT);
+				if (timeout > EEM_LOCKTIME_LIMIT) {
+					eem_error("timeout reach limit %d\n", EEM_LOCKTIME_LIMIT);
+					break;
+				}
 			}
 			/* BUG_ON(det->real_vboot != det->VBOOT); */
 			WARN_ON(det->real_vboot != det->VBOOT);
@@ -3524,6 +3540,10 @@ __func__, __LINE__, det->name, det->real_vboot, det->VBOOT);
 			eem_error
 			("init01 wait time is %d, bankmask:0x%x[/0x%x]\n",
 			timeout, out, final_init01_flag);
+		if (timeout > EEM_LOCKTIME_LIMIT) {
+			eem_error("timeout reach limit %d\n", EEM_LOCKTIME_LIMIT);
+			break;
+		}
 	}
 
 #if ENABLE_LOO_G
