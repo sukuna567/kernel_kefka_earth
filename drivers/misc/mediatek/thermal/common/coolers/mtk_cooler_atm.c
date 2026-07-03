@@ -109,7 +109,7 @@ unsigned int gv_cpu_power_limit = 0x7FFFFFFF;
 unsigned int gv_gpu_power_limit = 0x7FFFFFFF;
 #if CPT_ADAPTIVE_AP_COOLER
 static int TARGET_TJ = CLATM_INIT_CFG_0_TARGET_TJ;
-static int cpu_target_tj = 65000;/*not use*/
+static int cpu_target_tj = 70000;/*not use*/
 static int cpu_target_offset = 10000;/*not use*/
 /*not used when tscpu_atm = 3*/
 static int TARGET_TJ_HIGH = 66000;
@@ -342,7 +342,7 @@ static int K_SUM_TT_HIGH = 10;
  */
 static int MIN_SUM_TT = -800000;
 static int MAX_SUM_TT = 800000;
-static int MIN_TTJ = 65000;
+static int MIN_TTJ = 70000;
 
 /* magic number decided by experience */
 static int CATMP_STEADY_TTJ_DELTA = 10000;
@@ -382,7 +382,7 @@ static unsigned long atm_hrtimer_polling_delay =
 	static int polling_factor2 = POLLING_FACTOR2;
 #else
 	static int polling_trip_temp0 = 75000;
-	static int polling_trip_temp1 = 65000;
+	static int polling_trip_temp1 = 70000;
 	static int polling_trip_temp2 = 40000;
 	static int polling_factor0 = 10;
 	static int polling_factor1 = 2;
@@ -1388,7 +1388,7 @@ static int P_adaptive(int total_power, unsigned int gpu_loading)
 			mt_ppm_thermal_get_max_power())
 #endif
 			opp0_cool = 1;
-	} else if (tscpu_g_curr_temp < 65000)
+	} else if (tscpu_g_curr_temp < 70000)
 		opp0_cool = 0;
 
 #if defined(CATM_TPCB_EXTEND)
@@ -3484,7 +3484,7 @@ static unsigned long atm_get_timeout_time(int curr_temp)
 	curr_temp = (curr_temp < -30000) ? -30000 : curr_temp;
 
 
-	if (curr_temp >= 65000)
+	if (curr_temp >= 70000)
 		return atm_hrtimer_polling_delay;
 	else
 		return (atm_hrtimer_polling_delay

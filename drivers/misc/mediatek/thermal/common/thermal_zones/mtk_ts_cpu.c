@@ -149,7 +149,7 @@ static int trip_temp[10] = {
 	TZCPU_INITCFG_TRIP_8_TEMP,
 	TZCPU_INITCFG_TRIP_9_TEMP };
 #else
-static int trip_temp[10] = { 117000, 100000, 85000, 75000, 65000,
+static int trip_temp[10] = { 117000, 100000, 85000, 75000, 70000,
 				55000, 45000, 35000, 25000, 15000 };
 #endif
 int tscpu_read_curr_temp;
