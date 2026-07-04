@@ -971,6 +971,7 @@ void mt_gpufreq_low_batt_callback(LOW_BATTERY_LEVEL low_battery_level)
  */
 void mt_gpufreq_thermal_protect(unsigned int limited_power)
 {
+	return;
 	int i = -1;
 	unsigned int limited_freq;
 
