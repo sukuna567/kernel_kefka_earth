@@ -184,8 +184,8 @@ static bool g_volt_enable_state;
 static bool g_keep_opp_freq_state;
 static bool g_opp_stress_test_state;
 static bool g_fixed_freq_volt_state;
-static bool g_pbm_limited_ignore_state;
-static bool g_thermal_protect_limited_ignore_state;
+static bool g_pbm_limited_ignore_state = true;
+static bool g_thermal_protect_limited_ignore_state ;
 static bool g_ptpod_ver_over_v2;
 static unsigned int g_efuse_id;
 static unsigned int g_ptpod_ver;
@@ -215,21 +215,21 @@ static unsigned int g_DVFS_off_by_ptpod_idx;
 static int g_opp_sb_idx_up[NUM_OF_OPP_IDX] = { 0 };
 static int g_opp_sb_idx_down[NUM_OF_OPP_IDX] = { 0 };
 #ifdef MT_GPUFREQ_BATT_OC_PROTECT
-static bool g_batt_oc_limited_ignore_state;
+static bool g_batt_oc_limited_ignore_state = true;
 static unsigned int g_batt_oc_level;
 static unsigned int g_batt_oc_limited_idx;
 static unsigned int g_batt_oc_limited_idx_lvl_0;
 static unsigned int g_batt_oc_limited_idx_lvl_1;
 #endif /* ifdef MT_GPUFREQ_BATT_OC_PROTECT */
 #ifdef MT_GPUFREQ_BATT_PERCENT_PROTECT
-static bool g_batt_percent_limited_ignore_state;
+static bool g_batt_percent_limited_ignore_state = true;
 static unsigned int g_batt_percent_level;
 static unsigned int g_batt_percent_limited_idx;
 static unsigned int g_batt_percent_limited_idx_lvl_0;
 static unsigned int g_batt_percent_limited_idx_lvl_1;
 #endif /* ifdef MT_GPUFREQ_BATT_PERCENT_PROTECT */
 #ifdef MT_GPUFREQ_LOW_BATT_VOLT_PROTECT
-static bool g_low_batt_limited_ignore_state;
+static bool g_low_batt_limited_ignore_state =;
 static unsigned int g_low_battery_level;
 static unsigned int g_low_batt_limited_idx;
 static unsigned int g_low_batt_limited_idx_lvl_0;
@@ -2574,19 +2574,18 @@ static void __mt_gpufreq_setup_opp_table(struct g_opp_table_info *freqs, int num
 
 	/* setup segment max/min opp_idx */
 	if (g_segment_id == MT6767_SEGMENT)
-		g_segment_max_opp_idx = 15;
+		g_segment_max_opp_idx = 0;
 	else if (g_segment_id == MT6769T_SEGMENT)
-		g_segment_max_opp_idx = 2;
+		g_segment_max_opp_idx = 0;
 	else if (g_segment_id == MT6769Z_SEGMENT)
 		g_segment_max_opp_idx = 0;
 	else
-		g_segment_max_opp_idx = 7;
+		g_segment_max_opp_idx = 0;
 
-	g_segment_min_opp_idx = 31;
+	g_segment_min_opp_idx = NUM_OF_OPP_IDX - 1;
 
 	g_max_opp_idx_num = num;
 	g_max_limited_idx = g_segment_max_opp_idx;
-	g_limiter = -1;
 	g_DVFS_off_by_ptpod_idx = g_segment_max_opp_idx;
 
 	g_ptpod_opp_idx_table = g_ptpod_opp_idx_table_segment;
